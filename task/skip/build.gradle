@@ -1,0 +1,24 @@
+tasks.register('taskA') {
+    println '>> taskA configured.'
+    doFirst {
+        println ">> taskA executed."
+    }
+    def skipProvider = providers.gradleProperty("skipTaskA")
+    onlyIf("taskA will be skipped if property skipTaskA is provided.") {
+        !skipProvider.isPresent()
+    }
+}
+
+tasks.register('taskB') {
+    dependsOn taskA
+    println '>> taskB configured.'
+    doFirst {
+        println ">> taskB executed."
+    }
+}
+
+/*
+compare commands:
+* ./gradlew taskB
+* ./gradlew taskB -PskipTaskA
+*/
