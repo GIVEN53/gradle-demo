@@ -1,0 +1,26 @@
+plugins {
+    id "com.gradle.develocity" version "3.17.5"
+}
+
+develocity {
+    buildScan {
+        // 명시적으로 사용하고자 할 경우 ex. ./gradlew build --scan
+//        publishing.onlyIf {
+//            false
+//        }
+
+        // 실패한 경우에만 스캔하도록 제한
+//        publishing.onlyIf {
+//            !it.buildResult.failures.empty
+//        }
+
+        // 환경 변수 CI가 설정되어 있는 경우에만 스캔
+//        publishing.onlyIf {
+//            System.getenv("CI")
+//        }
+
+        // 약관 동의
+        termsOfUseUrl = "https://gradle.com/help/legal-terms-of-use"
+        termsOfUseAgree = "yes"
+    }
+}
