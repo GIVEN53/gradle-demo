@@ -1,0 +1,49 @@
+// ./gradlew sayHello
+tasks.register('sayHello') {
+    doFirst {
+        println 'hello!'
+    }
+}
+
+// create
+// eager
+tasks.create('taskA') {
+    println '>> [eager] taskA configured. (create)'
+    doFirst {
+        println '>> taskA executed. (create)'
+    }
+}
+
+// eager
+task taskB {
+    println '>> [eager] taskB configured. (task)'
+    doFirst {
+        println '>> taskB executed. (task)'
+    }
+}
+
+// lazy
+tasks.register('taskC') {
+    println '>> [lazy] taskC configured. (register)'
+    doFirst {
+        println '>> taskC executed. (register)'
+    }
+}
+
+
+// configure
+// eager
+test {
+    println '>> [eager] test configured.'
+    doFirst {
+        println '>> test executed.'
+    }
+}
+
+// lazy
+tasks.named('test') {
+    println '>> [lazy] test configured.'
+    doFirst {
+        println '>> test executed.'
+    }
+}
