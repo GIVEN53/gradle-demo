@@ -1,0 +1,34 @@
+// 병렬 테스트
+tasks.named('test') {
+    maxParallelForks = 3
+    // or
+    maxParallelForks = Runtime.runtime.availableProcessors().intdiv(2) ?: 1
+}
+
+// report 비활성화
+tasks.named('test') {
+    reports.html.required = false
+    reports.junitXml.required = false
+}
+
+// fork된 프로세스에서 실행할 최대 테스트 클래스 수
+tasks.named('test') {
+    forkEvery = 100
+}
+
+// test 필터링
+tasks.named('test') {
+    filter {
+        // 명시한 테스트 메서드명 포함
+        includeTestsMatching "*Check"
+
+        // 명시한 패키지의 테스트 포함
+        includeTestsMatching "com.gradledemo.domain.*"
+
+        // 명시한 테스트 클래스명 포함
+        includeTestsMatching "*IntegrationTest"
+
+        // 명시한 테스트 클래스명 제외
+        excludeTestsMatching "*DocumentationTest"
+    }
+}
