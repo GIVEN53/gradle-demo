@@ -1,0 +1,70 @@
+plugins {
+    id 'java'
+    id 'org.springframework.boot' version '3.2.4'
+    id 'io.spring.dependency-management' version '1.1.4'
+    id "org.asciidoctor.jvm.convert" version "3.3.2" // asciidoctor 플러그인
+}
+
+configurations {
+    asciidoctorExt // 종속성 구성 설정
+}
+
+ext {
+    snippetsDir = file('build/generated-snippets') // custom property
+}
+
+dependencies {
+    // ...
+
+    // build/generated-snippets 하위에 생긴 .adoc 스니펫 조각들을 프로젝트 내의 .adoc에서 읽을 수 있도록 함
+    // -> src/docs/asciidoc 에서 스니펫 조각 결합할 때 사용
+    asciidoctorExt 'org.springframework.restdocs:spring-restdocs-asciidoctor:3.0.1'
+    testImplementation 'org.springframework.restdocs:spring-restdocs-mockmvc:3.0.1'
+}
+
+tasks.named('test') {
+    useJUnitPlatform()
+
+    // build/generated-snippets 디렉토리를 테스트의 output으로 설정
+    // -> .adoc 스니펫 조각들이 build/generated-snippets으로 출력
+    outputs.dir snippetsDir
+}
+
+// 결합한 index.adoc을 html로 컨버팅하여 build/docs/asciidoc로 복사
+tasks.named('asciidoctor') {
+    dependsOn test // test task 이후 실행
+    inputs.dir snippetsDir // build/generated-snippets 디렉토리를 input으로 설정
+    configurations 'asciidoctorExt' // 설정 적용
+
+    // source가 없으면 모든 .adoc 파일을 html로 만듬 따라서 특정 .adoc만 지정
+    // -> src/docs/asciidoc/index.adoc을 build/docs/asciidoc/index.html로 변환
+    sources {
+        include("**/index.adoc")
+    }
+
+    // 특정 .adoc에 다른 .adoc 파일을 가져와서 사용할 때 경로를 baseDir로 맞추는 설정
+    // -> index.adoc에서 다른 .adoc 파일을 include할 때 baseDir을 index.adoc 기준
+    baseDirFollowsSourceFile()
+
+    // 실행 시점에 src/main/resources/static/docs 디렉토리 삭제
+    doFirst {
+        delete file('src/main/resources/static/docs')
+    }
+}
+
+tasks.named('bootJar') {
+    dependsOn asciidoctor // asciidoctor task 이후 실행
+    from("${asciidoctor.outputDir}") { // build/docs/asciidoc 디렉토리를 jar 파일의 static/docs에 복사
+        into 'static/docs'
+    }
+}
+
+tasks.register('copyDocument', Copy) { // Copy는 Gradle이 제공하는 task type
+    dependsOn asciidoctor
+    from file('build/docs/asciidoc')
+    into file('src/main/resources/static/docs')
+}
+
+tasks.named('build') {
+    dependsOn copyDocument
+}
