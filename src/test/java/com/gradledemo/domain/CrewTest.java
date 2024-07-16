@@ -4,7 +4,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class CrewTest {
+class CrewTest {
 
     @Test
     void 크루를_생성한다() {
