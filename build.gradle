@@ -25,4 +25,15 @@ dependencies {
 
 tasks.named('test') {
     useJUnitPlatform()
+    filter {
+        excludeTestsMatching "com.gradledemo.parallel.*"
+    }
+}
+
+tasks.register('parallelTest', Test) {
+    useJUnitPlatform()
+    maxParallelForks = 3
+    filter {
+        includeTestsMatching "com.gradledemo.parallel.*"
+    }
 }
