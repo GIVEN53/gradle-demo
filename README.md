@@ -9,8 +9,8 @@
     - [2.1. create custom task](#21-create-custom-task)
     - [2.2. acquire task reference](#22-acquire-task-reference)
 - [3. controlling task execution](#3-controlling-task-execution)
-    - [3.1. strong relationship](#31-strong-relationship)
-    - [3.2. weak relationship](#32-weak-relationship)
+    - [3.1. strong relationships](#31-strong-relationships)
+    - [3.2. soft relationships](#32-soft-relationships)
 - [4. skip task](#4-skip-task)
 - [5. test](#5-test)
     - [5.1. test in parallel](#51-test-in-parallel)
@@ -52,17 +52,17 @@ task의 참조를 획득할 때 DSL 블럭을 사용하면 즉시 생성되므�
 
 ### 3. controlling task execution
 
-#### 3.1. strong relationship
+#### 3.1. strong relationships
 
 `dependsOn()`, `finalizedBy()`를 사용하여 task간 의존성을 설정합니다.
 
 [build.gradle](./task/relationship/strong/build.gradle)
 
-#### 3.2. weak relationship
+#### 3.2. soft relationships
 
 `mustRunAfter()`, `shouldRunAfter()`를 사용하여 task간 실행 순서를 제어합니다.
 
-[build.gradle](./task/relationship/weak/build.gradle)
+[build.gradle](task/relationship/soft/build.gradle)
 
 ### 4. skip task
 
