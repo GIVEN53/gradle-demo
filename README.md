@@ -149,4 +149,4 @@ $ ./gradlew wrapper --gradle-version latest
 ### 7. spring rest docs
 
 [Spring REST Docs](https://docs.spring.io/spring-restdocs/docs/current/reference/htmlsingle/)를
-사용하기 위해 추가한 [build.gradle](./task/restdocs/build.gradle)의 각 구성의 역할을 설명합니다.
+사용하기 위해 [build.gradle](./task/restdocs/build.gradle)에 추가한 각 구성의 역할을 설명합니다.
