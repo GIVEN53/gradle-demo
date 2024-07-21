@@ -1,33 +1,3 @@
-// dependsOn
-// ./gradlew taskB
-tasks.register('taskA') {
-    doFirst {
-        println '>> taskA executed.'
-    }
-}
-
-tasks.register('taskB') {
-    dependsOn taskA
-    doFirst {
-        println '>> taskB executed.'
-    }
-}
-
-// finalizedBy
-// ./gradlew taskB
-tasks.register('taskA') {
-    doFirst {
-        println '>> taskA executed.'
-    }
-}
-
-tasks.register('taskB') {
-    finalizedBy taskA
-    doFirst {
-        println '>> taskB executed.'
-    }
-}
-
 // mustRunAfter
 // ./gradlew taskB taskA
 tasks.register('taskA') {
