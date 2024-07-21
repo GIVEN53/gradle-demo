@@ -1,0 +1,4 @@
+tasks.named('test') {
+    reports.html.required = false
+    reports.junitXml.required = false
+}
