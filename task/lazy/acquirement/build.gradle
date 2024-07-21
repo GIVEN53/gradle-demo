@@ -1,0 +1,19 @@
+// eager -> Task instance is created and configured immediately.
+test {
+    println '>> [eager] test configured.'
+    doFirst {
+        println '>> test executed.'
+    }
+}
+
+// lazy -> TaskProvider instance is created immediately, but Task instance is created and configured when the task is executed.
+tasks.named('test') {
+    println '>> [lazy] test configured.'
+    doFirst {
+        println '>> test executed.'
+    }
+}
+
+// ./gradlew taskA
+tasks.register('taskA') {
+}
