@@ -1,6 +1,6 @@
 # gradle-demo
 
-우아한테크코스 [테코톡](https://www.youtube.com/) 발표에서 활용한 Gradle 샘플 코드입니다.
+우아한테크코스 [테코톡](https://www.youtube.com/watch?v=jSInFhiz1kY) 발표에서 활용한 Gradle 샘플 코드입니다.
 
 ## 목차
 
